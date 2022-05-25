@@ -10,6 +10,12 @@ import { jwtSecret, isProd } from '../settings';
  */
 export async function postSignup(req: Request, res: Response) {
   const { email, password } = req.body;
+  if (!email) {
+    return res.status(400).send({
+      error: '"email" is required',
+    });
+  }
+
   // Prevent duplicate email insertion
   const existingUser = await User.findOne({ email });
   if (existingUser) {
