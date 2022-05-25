@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "argon2": "^0.28.5",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
+    "express-jwt": "^7.7.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.4"
   },

@@ -1,7 +1,17 @@
+### signup
 POST http://localhost:5000/api/auth/signup
 Content-Type: application/json
 
 {
   "email": "foo3@bar.com",
   "password": "abcd1234"
+}
+
+### create post
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+
+{
+  "title": "hello",
+  "content": "lorem ipsum"
 }
