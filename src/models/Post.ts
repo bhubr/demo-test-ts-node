@@ -1,7 +1,7 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, Types, model, Document } from 'mongoose';
 
 interface IPost {
-  author: string;
+  author: Types.ObjectId;
   title: string;
   content: string;
   createdAt: Date;
