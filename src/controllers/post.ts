@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { Request, Response } from 'express';
 
-import User from '../models/User';
 import Post from '../models/Post';
 
 type ReqWithAuth = Request & { auth: { _id: string } };
@@ -75,39 +74,3 @@ export async function updatePost(req: Request, res: Response) {
 
   return res.status(200).send(updatedPost!.toObject());
 }
-
-/**
- * Handle user signin
- */
-// async function postSignin(req: Request, res: Response) {
-//   const { email, password } = req.body;
-
-//   // Prevent duplicate email insertion
-//   const user = await User.findOne({ email });
-//   if (!user) {
-//     return res.status(401).send({
-//       error: 'invalid credentials email',
-//     });
-//   }
-
-//   const passwordMatches = await user.comparePassword(password);
-//   if (!passwordMatches) {
-//     return res.status(401).send({
-//       error: 'invalid credentials pwd',
-//     });
-//   }
-
-//   const jwt = await generateJwtForUser(user);
-//   res.cookie('jwt', jwt, jwtCookieOptions);
-
-//   return res.status(200).send({
-//     userId: user._id,
-//     jwt,
-//   });
-// }
-
-/**
- * Validated controllers
- */
-// export const validatedPostSignup = [validatePostSignup, postSignup];
-// export const validatedPostSignin = [validatePostSignin, postSignin];

@@ -53,39 +53,3 @@ export async function postSignup(req: Request, res: Response) {
     jwt: token,
   });
 }
-
-/**
- * Handle user signin
- */
-// async function postSignin(req: Request, res: Response) {
-//   const { email, password } = req.body;
-
-//   // Prevent duplicate email insertion
-//   const user = await User.findOne({ email });
-//   if (!user) {
-//     return res.status(401).send({
-//       error: 'invalid credentials email',
-//     });
-//   }
-
-//   const passwordMatches = await user.comparePassword(password);
-//   if (!passwordMatches) {
-//     return res.status(401).send({
-//       error: 'invalid credentials pwd',
-//     });
-//   }
-
-//   const jwt = await generateJwtForUser(user);
-//   res.cookie('jwt', jwt, jwtCookieOptions);
-
-//   return res.status(200).send({
-//     userId: user._id,
-//     jwt,
-//   });
-// }
-
-/**
- * Validated controllers
- */
-// export const validatedPostSignup = [validatePostSignup, postSignup];
-// export const validatedPostSignin = [validatePostSignin, postSignin];

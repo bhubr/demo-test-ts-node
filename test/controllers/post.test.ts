@@ -6,21 +6,6 @@ import User from '../../src/models/User';
 import { jwtSecret } from '../../src/settings';
 import Post from '../../src/models/Post';
 
-async function testPost(
-  path: string,
-  data: { email?: string; password?: string },
-  expectedCode: number
-) {
-  return (
-    request(app)
-      .post(path)
-      .send(data)
-      // Assert
-      .expect('Content-Type', /json/)
-      .expect(expectedCode)
-  );
-}
-
 describe('post controller', () => {
   describe('create post', () => {
     it('no auth', async () => {
