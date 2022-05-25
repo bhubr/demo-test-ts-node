@@ -104,3 +104,15 @@ export async function postSignin(req: Request, res: Response) {
     jwt: token,
   });
 }
+
+export async function getUser(req: Request, res: Response) {
+  const auth = (req as Request & { auth: { _id: string } }).auth;
+  const user = await User.findById(auth._id);
+  if (!user) {
+    return res.status(410).send({
+      error: 'user is gone!',
+    });
+  }
+  const { _id, email } = user.toObject();
+  return res.send({ _id, email });
+}
