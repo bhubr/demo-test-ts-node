@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import emailValidator from 'email-validator';
 
 import User from '../models/User';
 import { jwtSecret, isProd } from '../settings';
@@ -13,6 +14,16 @@ export async function postSignup(req: Request, res: Response) {
   if (!email) {
     return res.status(400).send({
       error: '"email" is required',
+    });
+  }
+  if (!emailValidator.validate(email)) {
+    return res.status(400).send({
+      error: '"email" is invalid',
+    });
+  }
+  if (!password) {
+    return res.status(400).send({
+      error: '"password" is required',
     });
   }
 

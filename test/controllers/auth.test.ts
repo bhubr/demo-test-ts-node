@@ -3,20 +3,50 @@ import request from 'supertest';
 import app from '../../src/app';
 import User from '../../src/models/User';
 
+async function testPost(
+  path: string,
+  data: { email?: string; password?: string },
+  expectedCode: number
+) {
+  return (
+    request(app)
+      .post(path)
+      .send(data)
+      // Assert
+      .expect('Content-Type', /json/)
+      .expect(expectedCode)
+  );
+}
+
 describe('auth controller', () => {
   describe('signup route', () => {
-    it('empty email & password', async () => {
-      // Act => effectuer une action, ici inscrire un user
-      await request(app)
-        .post('/api/auth/signup')
-        .send({ email: '', password: '' })
-        // Assert
-        .expect('Content-Type', /json/)
-        .expect(400)
-        .then((res) => {
-          expect(res.body.error).toBe('"email" is required');
+    const errorCases = [
+      {
+        title: 'empty email & password',
+        data: { email: '', password: '' },
+        errorMessage: '"email" is required',
+      },
+      {
+        title: 'invalid email',
+        data: { email: 'email', password: '' },
+        errorMessage: '"email" is invalid',
+      },
+      {
+        title: 'empty password',
+        data: { email: 'test@email.net', password: '' },
+        errorMessage: '"password" is required',
+      },
+    ];
+
+    errorCases.forEach(({ title, data, errorMessage }) => {
+      it(title, async () => {
+        // Act => effectuer une action, ici inscrire un user
+        await testPost('/api/auth/signup', data, 400).then((res) => {
+          expect(res.body.error).toBe(errorMessage);
         });
+      });
     });
+
     it('duplicate email', async () => {
       // AAA => Arrange, Act, Assert
 
