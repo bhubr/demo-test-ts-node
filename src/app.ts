@@ -17,6 +17,7 @@ app.get('/api/dummy-endpoint', jwtCheck, (req, res) =>
 );
 
 app.post('/api/auth/signup', authController.postSignup);
+app.post('/api/auth/signin', authController.postSignin);
 app.post('/api/posts', jwtCheck, postController.createPost);
 app.put('/api/posts/:postId', jwtCheck, postController.updatePost);
 
