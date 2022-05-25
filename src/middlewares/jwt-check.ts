@@ -12,7 +12,9 @@ export default expressjwt({
   secret: jwtSecret,
   algorithms: ['HS256'],
   getToken: function fromHeaderOrQuerystring(req: Request) {
-    const { jwt } = (req as ReqWithCookies).cookies;
-    return jwt || null;
+    const { jwt: cookieJwt } = (req as ReqWithCookies).cookies;
+    const { authorization } = req.headers;
+    const bearerJwt = authorization?.split(' ')[1] || null;
+    return cookieJwt || bearerJwt || null;
   },
 });
