@@ -1,21 +1,7 @@
-import express from 'express';
-import cors from 'cors';
 import mongoose from 'mongoose';
 
 import { port } from './settings';
-import * as authController from './controllers/auth';
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.get('/api/dummy-endpoint', (req, res) =>
-  res.send({
-    message: 'Hello from the backend',
-  })
-);
-
-app.post('/api/auth/signup', authController.postSignup);
+import app from './app';
 
 async function start() {
   await mongoose.connect('mongodb://localhost:27017/myapp_dev');
